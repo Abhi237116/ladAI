@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import './styles.css'; // Make sure to import your styles
+import { useState } from "react";
 
-const ContactUs = () => {
+function ContactUs() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -18,8 +17,8 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', message: '' });
+    console.log("Form submitted:", formData);
+    setFormData({ name: "", email: "", message: "" });
   };
 
   return (
@@ -61,10 +60,12 @@ const ContactUs = () => {
             required
           />
         </div>
-        <button type="submit" className="submit-button">Send Message</button>
+        <button type="submit" className="submit-button">
+          Send Message
+        </button>
       </form>
     </div>
   );
-};
+}
 
 export default ContactUs;

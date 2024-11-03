@@ -1,0 +1,77 @@
+import { useState, useEffect } from "react";
+
+function Txt2img() {
+  const [image, setImage] = useState(null);
+  const [created, setCreated] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+    setImage(null);
+    const prompt = "puppies in the cloud";
+    fetch(`/generate-image?prompt=${encodeURIComponent(prompt)}`)
+      .then((response) => {
+        if (!ignore) {
+          setImage(response.imageUrl);
+          setCreated;
+        }
+      })
+      .catch((error) => console.error("Error fetching image:", error));
+    return () => {
+      ignore = true;
+      setCreated(false);
+    };
+  }, [created]);
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setCreated(true);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <div
+        style={{
+          border: "10px solid #ccc",
+          borderRadius: "4px",
+          marginBottom: "20px",
+          height: "512px",
+          width: "512px",
+          background: "white",
+        }}
+      >
+        image && (
+        <img
+          src={image}
+          alt="Generated image preview"
+          style={{ maxWidth: "100%" }}
+        />
+        )
+      </div>
+      <input
+        style={{
+          width: "50%",
+          padding: "10px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          marginBottom: "20px",
+        }}
+        type="text"
+        id="text"
+        placeholder="Enter your prompt"
+        onKeyDown={handleKeyPress}
+      />
+    </div>
+  );
+}
+
+export default Txt2img;
