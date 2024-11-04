@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { surpriseMePrompts } from "./constants/index";
 
 function Txt2img() {
   const [image, setImage] = useState(null);
@@ -9,10 +10,11 @@ function Txt2img() {
     setImage(null);
     const prompt = "puppies in the cloud";
     fetch(`/generate-image?prompt=${encodeURIComponent(prompt)}`)
-      .then((response) => {
+      .then((response) => response.json())
+      .then((data) => {
         if (!ignore) {
-          setImage(response.imageUrl);
-          setCreated;
+          setImage(data.imageUrl);
+          setCreated(false);
         }
       })
       .catch((error) => console.error("Error fetching image:", error));
@@ -27,6 +29,18 @@ function Txt2img() {
       setCreated(true);
     }
   };
+
+  const handleSurpriseMe = () => {
+    const randomPrompt = surpriseMePrompts[Math.floor(Math.random() * surpriseMePrompts.length)];
+    fetch(`/generate-image?prompt=${encodeURIComponent(randomPrompt)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setImage(data.imageUrl);
+      })
+      .catch((error) => console.error("Error fetching image:", error));
+  };
+
+ 
 
   return (
     <div
@@ -70,6 +84,21 @@ function Txt2img() {
         placeholder="Enter your prompt"
         onKeyDown={handleKeyPress}
       />
+
+      <button
+        onClick={handleSurpriseMe}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#007BFF",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Surprise Me!!
+      </button>
     </div>
   );
 }
