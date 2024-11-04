@@ -1,46 +1,35 @@
 import { useState, useEffect } from "react";
-import { surpriseMePrompts } from "./constants/index";
+// import { surpriseMePrompts } from "../constants/index.js";
+import { useQuery } from "@tanstack/react-query";
+
+async function fetchImage(prompt) {
+  const response = await fetch(`/generate-image?prompt=${encodeURIComponent(prompt)}`);
+  return await response.json();
+}
 
 function Txt2img() {
   const [image, setImage] = useState(null);
-  const [created, setCreated] = useState(false);
+  const [prompt, setPrompt] = useState("");
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["image", prompt],
+    queryFn: () => fetchImage(prompt),
+    enabled: !!prompt,
+  });
 
   useEffect(() => {
-    let ignore = false;
-    setImage(null);
-    const prompt = "puppies in the cloud";
-    fetch(`/generate-image?prompt=${encodeURIComponent(prompt)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!ignore) {
-          setImage(data.imageUrl);
-          setCreated(false);
-        }
-      })
-      .catch((error) => console.error("Error fetching image:", error));
-    return () => {
-      ignore = true;
-      setCreated(false);
-    };
-  }, [created]);
+    if (isSuccess && data) {
+      setImage(data.imageUrl);
+    }
+  }, [isSuccess, data]);
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setCreated(true);
+      if (prompt !== event.target.value) {
+        setPrompt(event.target.value);
+      }
     }
   };
-
-  const handleSurpriseMe = () => {
-    const randomPrompt = surpriseMePrompts[Math.floor(Math.random() * surpriseMePrompts.length)];
-    fetch(`/generate-image?prompt=${encodeURIComponent(randomPrompt)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setImage(data.imageUrl);
-      })
-      .catch((error) => console.error("Error fetching image:", error));
-  };
-
- 
 
   return (
     <div
@@ -62,13 +51,13 @@ function Txt2img() {
           background: "white",
         }}
       >
-        image && (
-        <img
-          src={image}
-          alt="Generated image preview"
-          style={{ maxWidth: "100%" }}
-        />
-        )
+        {image && (
+          <img
+            src={image}
+            alt="Generated image preview"
+            style={{ maxWidth: "100%" }}
+          />
+        )}
       </div>
       <input
         style={{
@@ -85,20 +74,6 @@ function Txt2img() {
         onKeyDown={handleKeyPress}
       />
 
-      <button
-        onClick={handleSurpriseMe}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          backgroundColor: "#007BFF",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-      >
-        Surprise Me!!
-      </button>
     </div>
   );
 }

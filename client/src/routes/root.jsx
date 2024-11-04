@@ -7,7 +7,7 @@ const App = () => {
         <ul className="nav-links">
           <li>
             <Link to="/" className="nav-link-button">
-              Home
+              <img src="/logo.png" width='30px' />
             </Link>
           </li>
           <li>
