@@ -8,5 +8,11 @@ export default defineConfig({
     hmr: {
       overlay: false, // to disable the error overlay if needed
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    }
   },
 });

@@ -1,33 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // import { surpriseMePrompts } from "../constants/index.js";
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchImage(prompt) {
-  const response = await fetch(`/generate-image?prompt=${encodeURIComponent(prompt)}`);
+  const response = await fetch(`/api/generate-image?prompt=${encodeURIComponent(prompt)}`);
   return await response.json();
 }
 
 function Txt2img() {
-  const [image, setImage] = useState(null);
   const [prompt, setPrompt] = useState("");
+  const [shouldFetch, setShouldFetch] = useState(false);
 
-  const { data, isSuccess } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["image", prompt],
-    queryFn: () => fetchImage(prompt),
-    enabled: !!prompt,
+    queryFn: function () { setShouldFetch(false); return fetchImage(prompt); },
+    enabled: shouldFetch,
   });
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      setImage(data.imageUrl);
-    }
-  }, [isSuccess, data]);
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      if (prompt !== event.target.value) {
-        setPrompt(event.target.value);
-      }
+      setShouldFetch(true);
     }
   };
 
@@ -51,9 +43,21 @@ function Txt2img() {
           background: "white",
         }}
       >
-        {image && (
+        {isFetching && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <div className="loader"></div>
+          </div>
+        )}
+        {!isFetching && data && data.imageUrl && (
           <img
-            src={image}
+            src={data.imageUrl}
             alt="Generated image preview"
             style={{ maxWidth: "100%" }}
           />
@@ -71,6 +75,7 @@ function Txt2img() {
         type="text"
         id="text"
         placeholder="Enter your prompt"
+        onChange={(e) => setPrompt(e.target.value)}
         onKeyDown={handleKeyPress}
       />
 

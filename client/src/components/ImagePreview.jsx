@@ -1,25 +1,23 @@
-import { useState } from "react";
+import PropTypes from 'prop-types';
 
-function ImageUploader() {
-  const [image, setImage] = useState(null);
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+function ImageUploader({ image, setImage }) {
+  const setFile = (file) => {
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onload = () => setImage(reader.result);
       reader.readAsDataURL(file);
     }
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = () => setImage(reader.result);
-      reader.readAsDataURL(file);
-    }
+    setFile(file);
   };
 
   const handleDragOver = (e) => {
@@ -31,13 +29,15 @@ function ImageUploader() {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       style={{
-        border: "2px solid #ccc",
-        borderRadius: "8px",
-        padding: "20px",
+        border: "10px solid #ccc",
+        borderRadius: "4px",
+        height: "512px",
+        width: "512px",
+        background: "white",
         textAlign: "center",
-        width: "300px",
-        height: "300px",
-        margin: "20px auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <input
@@ -63,5 +63,10 @@ function ImageUploader() {
     </div>
   );
 }
+
+ImageUploader.propTypes = {
+  image: PropTypes.string,
+  setImage: PropTypes.func.isRequired,
+};
 
 export default ImageUploader;
