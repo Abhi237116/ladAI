@@ -7,8 +7,10 @@ import ContactUs from "./routes/contact.jsx";
 import Home from "./routes/home.jsx";
 import Txt2img from "./routes/txt2img.jsx";
 import Img2img from "./routes/img2img.jsx";
+import HelpPage from "./routes/help.jsx";
 import "./index.css";
 import "./styles.css";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
       },
       { path: "txt2img", element: <Txt2img /> },
       { path: "img2img", element: <Img2img /> },
+      { path: "help", element: <HelpPage /> },
     ],
   },
 ]);
