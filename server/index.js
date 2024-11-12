@@ -5,13 +5,9 @@ import prodia from '@api/prodia';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware to parse JSON bodies
 app.use(express.json({ limit: '10mb' }));
-
-// Serve static files from the Vite build directory
 app.use(express.static(join(__dirname, '../client/dist')));
 
-// Catch all route to serve the index.html file
 prodia.auth('009f6d76-fa52-4c23-b785-a93b6654e31d');
 app.get('/api/generate-image', (req, res) => {
     const text = req.query.prompt || 'a rainy evening in the city';
