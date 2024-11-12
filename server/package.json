@@ -4,10 +4,12 @@
   "devDependencies": {
     "@types/bun": "latest"
   },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
   "type": "module",
   "dependencies": {
     "@api/prodia": "file:.api/apis/prodia",
-    "express": "^4.21.1",
-    "prodia": "^1.0.6"
+    "express": "^4.21.1"
   }
 }
