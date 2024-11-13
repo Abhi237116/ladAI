@@ -8,6 +8,9 @@ import Home from "./routes/home.jsx";
 import Txt2img from "./routes/txt2img.jsx";
 import Img2img from "./routes/img2img.jsx";
 import HelpPage from "./routes/help.jsx";
+import LoginForm from './routes/login.jsx';
+import RegisterForm from './routes/RegisterForm.jsx';
+import Team from "./routes/team.jsx";
 import "./index.css";
 import "./styles.css";
 
@@ -35,7 +38,10 @@ const router = createBrowserRouter([
       { path: "upscale", element: <Upscale /> },
       { path: "grayscale", element: <Grayscale /> },
       { path: "team", element: <Team /> },
-      { path: "help", element: <HelpPage /> },
+      { path: "login", element: <LoginForm /> },
+      { path: "RegisterForm", element: <RegisterForm /> },
+      { path: "aboutus", element: <AboutUs /> }
+      
     ],
   },
 ]);

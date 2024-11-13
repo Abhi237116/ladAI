@@ -1,13 +1,15 @@
 import express from 'express';
 import { join } from 'path';
-import prodia from '@api/prodia';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(join(__dirname, '../client/dist')));
+app.use(cors()); // Enable CORS
 
 // Connect to MongoDB (using Atlas URI as an example)
 const mongoURI = 'mongodb+srv://abhir7116:Master.12345@cluster0.s18tc.mongodb.net/LADAI';
@@ -15,13 +17,21 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-// MongoDB Models (Add a basic user model for registration/login)
+// MongoDB Models
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
 const User = mongoose.model('User', UserSchema);
+
+const ContactSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
+});
+
+const Contact = mongoose.model('Contact', ContactSchema);
 
 // Register API
 app.post('/api/register', async (req, res) => {
@@ -54,10 +64,23 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+// Contact Us API
+app.post('/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+  try {
+    const newContact = new Contact({ name, email, message });
+    await newContact.save();
+    res.status(200).json({ message: 'Contact information saved successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error inserting contact information' });
+    console.error(err);
+  }
+});
+
 // Image Generation Routes
+import prodia from '@api/prodia';
 prodia.auth('009f6d76-fa52-4c23-b785-a93b6654e31d');
 
-// Generate image
 app.get('/api/generate-image', (req, res) => {
   const text = req.query.prompt || 'a rainy evening in the city';
   let job;
