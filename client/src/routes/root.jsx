@@ -21,8 +21,13 @@ const App = () => {
             </Link>
           </li>
           <li>
-            <Link to="/inpainting" className="nav-link-button">
-              Inpainting
+            <Link to="/upscale" className="nav-link-button">
+              Upscale
+            </Link>
+          </li>
+          <li>
+            <Link to="/grayscale" className="nav-link-button">
+              Grayscale
             </Link>
           </li>
           <li>

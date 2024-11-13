@@ -38,6 +38,7 @@ function ImageUploader({ image, setImage }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        overflow: "hidden",
       }}
     >
       <input
@@ -45,19 +46,26 @@ function ImageUploader({ image, setImage }) {
         accept="image/*"
         onChange={handleImageUpload}
         style={{ display: "none" }}
-        id="image-upload"
-      />
+        id="image-upload" />
       {!image ? (
         <label htmlFor="image-upload" style={{ cursor: "pointer" }}>
           <strong>Click to upload</strong> or drag and drop an image
         </label>
       ) : (
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ position: "relative" }}>
           <img
             src={image}
-            alt="Uploaded preview"
-            style={{ maxWidth: "100%" }}
-          />
+            alt="Uploaded preview" />
+          <button
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px'
+            }}
+            onClick={() => setImage(null)}
+          >
+            Clear
+          </button>
         </div>
       )}
     </div>

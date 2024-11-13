@@ -12,6 +12,9 @@ import "./index.css";
 import "./styles.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Upscale from "./routes/upscaler.jsx";
+import Grayscale from "./routes/grayscale.jsx";
+import Team from "./routes/team.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,9 @@ const router = createBrowserRouter([
       },
       { path: "txt2img", element: <Txt2img /> },
       { path: "img2img", element: <Img2img /> },
+      { path: "upscale", element: <Upscale /> },
+      { path: "grayscale", element: <Grayscale /> },
+      { path: "team", element: <Team /> },
       { path: "help", element: <HelpPage /> },
     ],
   },

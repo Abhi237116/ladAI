@@ -6,10 +6,7 @@ import mongoose from 'mongoose';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware to parse JSON bodies
 app.use(express.json({ limit: '10mb' }));
-
-// Serve static files from the Vite build directory
 app.use(express.static(join(__dirname, '../client/dist')));
 
 // Connect to MongoDB (using Atlas URI as an example)
