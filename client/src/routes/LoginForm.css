@@ -1,133 +1,102 @@
-/* Wrapper for centering the form */
-.wrapper {
-    width: 420px;
-    height: 450px;
-    margin: 50px auto;
-    padding: 20px;
-    background: transparent;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border: 2px solid rgba(255,255,255, 1);
-    backdrop-filter: blur(15px);
-  }
-  
-  /* Style for the form header */
-  .wrapper h1 {
-    text-align: center;
-    margin-bottom: 10px;
-    padding: 20px;
-    
-    color:white;
-    font-size: 36px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-  }
-  
-  /* Input box styling */
-  .input-box {
-    margin-bottom: 15px;
-  }
-  
-  .input-box input {
-    width: 100%;
-    height: 20%;
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid white;  /* Visible border */
-    border-radius: 15px;
-    box-sizing: border-box;
-    font-size: 16px;
-    background-color: white;
-    color:white;
-    background: transparent;
-  }
-
-  .input-box input::placeholder{
-    color: white;
-  }
-  
-  /* Remember me and Forgot password section */
-  
-  .forgot-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: right;
-    margin-bottom: 10px;
-    font-size: 14px;
-    right: 35px;
-    top: 60%;
-    position: absolute;
-  }
-
-  .remember-forgot label {
-    display: flex;
-    align-items: center;
-    color: white;
-    text-decoration: blueviolet;
-  }
-  
-  .remember-forgot a {
-    color: white;
-    text-decoration: none;
-  }
-  
-   
-  /* Submit button styling */
-  button[type='submit'] {
-    width: 100%;
-    padding: 10px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-
-  
-  /* Register link section */
-  .register-link {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: white;
-  }
-
- 
-  
-  /* FaLock icon styling */
-  .input-box .icon-user {
-    position: absolute;
-    right: 35px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: white;
-
-  }
-  .input-box .icon-lock
-   {
-    position: absolute;
-    right: 35px;
-    top: 55%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: white;
-
-  }
-
-  body{
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
-    background:url('./back.jpg')no-repeat;
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: brightness(30%);
-
+.login-box {
+  width: 420px;
+  height: 450px;
+  margin: 50px auto;
+  padding: 20px;
+  background: transparent;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 1);
+  backdrop-filter: blur(15px);
 }
-.white-link {
+
+/* Style for the form header */
+.login-box h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  padding: 20px;
+
+  color: white;
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+/* Input box styling */
+.input-box {
+  position: relative;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.input-box input {
+  width: 100%;
+  height: 20%;
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid white; /* Visible border */
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: white;
+  color: white;
+  background: transparent;
+}
+
+.input-box input::placeholder {
+  color: white;
+}
+
+/* Remember me and Forgot password section */
+
+.forgot-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  margin-bottom: 10px;
+  font-size: 14px;
+  right: 35px;
+  top: 60%;
+  position: absolute;
+}
+
+.remember-forgot label {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: blueviolet;
+}
+
+.remember-forgot a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Register link section */
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: white;
+}
+
+/* FaLock icon styling */
+.input-box .icon-user, .input-box .icon-lock {
+  position: absolute;
+  right: 1em;
+  top: 40%;
+  font-size: 16px;
   color: white;
 }

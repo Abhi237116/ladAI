@@ -1,6 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import "./index.css";
+import "./styles.css";
+
 import ErrorPage from "./error-page.jsx";
 import App from "./routes/root.jsx";
 import ContactUs from "./routes/contact.jsx";
@@ -11,13 +16,9 @@ import HelpPage from "./routes/help.jsx";
 import LoginForm from './routes/login.jsx';
 import RegisterForm from './routes/RegisterForm.jsx';
 import Team from "./routes/team.jsx";
-import "./index.css";
-import "./styles.css";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Upscale from "./routes/upscaler.jsx";
 import Grayscale from "./routes/grayscale.jsx";
-import Team from "./routes/team.jsx";
+import AboutUs from "./routes/about.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,23 +26,17 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "contact",
-        element: <ContactUs />,
-      },
+      { path: "/", element: <Home /> },
+      { path: "contact", element: <ContactUs /> },
       { path: "txt2img", element: <Txt2img /> },
       { path: "img2img", element: <Img2img /> },
       { path: "upscale", element: <Upscale /> },
       { path: "grayscale", element: <Grayscale /> },
       { path: "team", element: <Team /> },
       { path: "login", element: <LoginForm /> },
-      { path: "RegisterForm", element: <RegisterForm /> },
-      { path: "aboutus", element: <AboutUs /> }
-      
+      { path: "register", element: <RegisterForm /> },
+      { path: "help", element: <HelpPage /> },
+      { path: "about", element: <AboutUs /> }
     ],
   },
 ]);

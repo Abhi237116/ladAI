@@ -1,7 +1,6 @@
 /* Wrapper styling for full screen layout */
 .about-us-page {
     width: 100%;
-    height: 100vh; /* Full viewport height */
     margin: 0;
     padding: 20px;
     background: rgba(255, 255, 255, 0.1); /* Transparent background */
@@ -94,33 +93,6 @@
     height: 20px;
     background-color: white;
     margin-bottom: 15px;
-}
-
-/* Styling for responsive design */
-@media (max-width: 1366px) {
-    .about-us-page {
-        width: 95%; /* Adjust width for 15-inch laptop screens */
-        height: auto; /* Auto height for better scaling */
-        padding: 15px;
-    }
-
-    .main-heading {
-        font-size: 28px;
-    }
-
-    .profile-circle {
-        width: 60px;
-        height: 60px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-links li {
-        margin: 5px 0;
-    }
 }
 
 /* For very large screens (1367px and above) */
