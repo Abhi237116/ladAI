@@ -40,7 +40,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.post('/contact', async (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
   try {
     const newContact = new Contact({ name, email, message });

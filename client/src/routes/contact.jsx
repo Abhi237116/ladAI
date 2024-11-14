@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -6,6 +7,7 @@ function ContactUs() {
     email: "",
     message: "",
   });
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,10 +17,17 @@ function ContactUs() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const response = await axios.post("api/contact", formData);
+      console.log("Form submitted:", response.data);
+      setSubmitStatus("Success! Your message has been sent.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("There was an error submitting the form:", error);
+      setSubmitStatus("Error! There was an issue sending your message.");
+    }
   };
 
   return (
@@ -64,6 +73,7 @@ function ContactUs() {
           Send Message
         </button>
       </form>
+      {submitStatus && <p>{submitStatus}</p>}
     </div>
   );
 }
